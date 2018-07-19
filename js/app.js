@@ -1,4 +1,4 @@
-const employees = document.getElementById('employees');
+const directory = document.getElementById('directory');
 
 const fetchData = (url) => {
   return fetch(url)
@@ -26,10 +26,12 @@ const generateMarkup = () => {
   `;
 
   for (i = 0; i < 12; i += 1) {
-    employees.innerHTML += markup;
+    direcotry.innerHTML += markup;
   }
 }
 generateMarkup();
+
+const employees = querySelectorAll('employee');
 
 
 
