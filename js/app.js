@@ -15,7 +15,21 @@ const checkStatus = (response) => {
   }
 }
 
+const generateMarkup = () => {
+  let markup = `
+    <div class="employee">
+      <img>
+      <h3 class="name"></h3>
+      <p class="email"></p>
+      <p class="city"></p>
+    </div>
+  `;
 
+  for (i = 0; i < 12; i += 1) {
+    employees.innerHTML += markup;
+  }
+}
+generateMarkup();
 
 
 
