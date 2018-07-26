@@ -29,19 +29,28 @@ const checkStatus = (response) => {
 ==========================*/
 let employeeData = {}
 
+//Resuable function for capitalizing data taken from fetched data
+const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 //Takes the fetched data and builds mark up around it to display on page.
 //Loops through the 12 returned objects and creates a div for each
 const generateMarkup = (data) => {
   for (i = 0; i < 12; i += 1) {
-    let markup = `
-      <div class="employee">
-        <img src="${data[i].picture.thumbnail}" class="photos">
-        <h3 class="name">${data[i].name.first} ${data[i].name.last}</h3>
-        <p class="email">${data[i].email}</p>
-        <p class="city">${data[i].location.city}</p>
+    let pageMarkup = `
+      <div id="${i}" class="employee">
+        <div class="avatar">
+          <img src="${data[i].picture.medium}" class="photo">
+        </div>
+        <div class="userInfo">
+          <h3 class="name">${capitalizeFirstLetter(data[i].name.first)} ${capitalizeFirstLetter(data[i].name.last)}</h3>
+          <p class="email">${data[i].email}</p>
+          <p class="city">${capitalizeFirstLetter(data[i].location.city)}</p>
+        </div>
       </div>
     `;
-    directory.innerHTML += markup;
+    directory.innerHTML += pageMarkup;
   }
 }
 
@@ -50,3 +59,26 @@ const generateMarkup = (data) => {
 fetchData('https://randomuser.me/api/?results=12')
   .then(res => employeeData = res.results)
   .then(data => generateMarkup(data))
+
+
+/*============
+     MODAL
+=============*/
+const modal = document.createElement('div');
+modal.id = "modal";
+modal.className = "hidden";
+
+let modalMarkup = `
+  <div id="modalAvatar">
+    <img src="">
+  </div>
+  <p id="modalName"></p>
+  <p id="modalEmail"></p>
+  <p id="modalCity"></p>
+  <hr>
+  <p id="modalPhone"></p>
+  <p id="modalAddress"></p>
+  <p id="modalBirth"></p>
+`;
+
+modal.innerHTML = modalMarkup;

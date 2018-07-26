@@ -1,0 +1,94 @@
+/*
+colors
+fcfcfc bg
+ffffff employee bg
+585858 Site name
+414b52 employee name
+a5a9ac employee info & borders
+*/
+
+body {
+  background: #f7f7f7;
+  font-family: 'Open Sans', sans-serif;
+}
+
+p {
+  margin: 2px 0px 8px 1px;
+}
+
+h2 {
+  margin: 20px 0px 0px 100px;
+  color: #585858;
+}
+
+h3 {
+  margin: 2px 0px 10px 1px;
+  font-size: 1.2em
+}
+
+.photo {
+  border-radius: 100px;
+  margin-right: 0px;
+  margin-top: 15px;
+}
+
+.avatar {
+  float: left;
+  clear: left;
+  margin-right: 0px;
+}
+
+.userInfo {
+  float: right;
+  clear: right;
+  margin-left: 0px;
+  margin-top: 15px;
+  width: 245px;
+  position: relative;
+  text-align: left;
+
+}
+
+.employee {
+  border-style: solid;
+  border-width: thin;
+  border-color: #a5a9ac;
+  border-radius: 10px;
+  margin: 10px 20px 10px 20px;
+  padding: 10px 40px 10px 40px;
+  background: #fff;
+  transition: all .4s ease-in-out;
+}
+
+.name {
+  color: #414b52;
+}
+
+.email,
+.city {
+  color: #a5a9ac;
+  font-size: .85em;
+}
+
+.hidden {
+  display: none;
+}
+
+#directory {
+  margin: 0px 40px 20px 40px;
+  padding: 20px 40px 20px 40px;
+}
+
+#modal {
+  background: #fff;
+  width: 475px;
+  height: 500px;
+}
+/*======================
+     PSEUDO CLASSES
+=======================*/
+
+.employee:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transform: scale(1.1);
+}
