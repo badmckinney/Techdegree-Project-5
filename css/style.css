@@ -83,6 +83,14 @@ h3 {
   background: #fff;
   width: 475px;
   height: 500px;
+  z-index: 1;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#modalName
+#modalCity
+#modalAddress {
+  text-transform: capitalize;
 }
 /*======================
      PSEUDO CLASSES
@@ -91,4 +99,5 @@ h3 {
 .employee:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   transform: scale(1.1);
+  cursor: pointer;
 }

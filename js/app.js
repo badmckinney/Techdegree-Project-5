@@ -28,7 +28,6 @@ const checkStatus = (response) => {
      PAGE CONSTRUCTION
 ==========================*/
 let employeeData = {}
-
 //Resuable function for capitalizing data taken from fetched data
 const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -39,24 +38,25 @@ const capitalizeFirstLetter = (string) => {
 const generateMarkup = (data) => {
   for (i = 0; i < 12; i += 1) {
     let pageMarkup = `
-      <div id="${i}" class="employee">
+      <div id="employee${i}" class="employee">
         <div class="avatar">
-          <img src="${data[i].picture.medium}" class="photo">
+          <img src="${data[i].picture.medium}" id="photo${i}" class="photo">
         </div>
-        <div class="userInfo">
-          <h3 class="name">${capitalizeFirstLetter(data[i].name.first)} ${capitalizeFirstLetter(data[i].name.last)}</h3>
-          <p class="email">${data[i].email}</p>
-          <p class="city">${capitalizeFirstLetter(data[i].location.city)}</p>
+        <div id="info${i}" class="userInfo">
+          <h3 id="name${i}" class="name">${capitalizeFirstLetter(data[i].name.first)} ${capitalizeFirstLetter(data[i].name.last)}</h3>
+          <p id="email${i}" class="email">${data[i].email}</p>
+          <p id="city${i}" class="city">${capitalizeFirstLetter(data[i].location.city)}</p>
         </div>
       </div>
     `;
     directory.innerHTML += pageMarkup;
   }
+  const employees = document.querySelectorAll('.employee');
 }
 
 //fetchData function is called, returning 12 objects from randomuser API
 //generateMarkup function is called, passing the returned data as an argument
-fetchData('https://randomuser.me/api/?results=12')
+fetchData('https://randomuser.me/api/?results=12&nat=us')
   .then(res => employeeData = res.results)
   .then(data => generateMarkup(data))
 
@@ -67,10 +67,17 @@ fetchData('https://randomuser.me/api/?results=12')
 const modal = document.createElement('div');
 modal.id = "modal";
 modal.className = "hidden";
+const modalPhoto = document.querySelectorAll('#modalPhoto');
+const modalName = document.querySelectorAll('#modalName');
+const modalEmail = document.querySelectorAll('#modalEmail');
+const modalCity = document.querySelectorAll('#modalCity');
+const modalPhone = document.querySelectorAll('#modalPhone');
+const modalAddress = document.querySelectorAll('#modalAddress');
+const modalBirth = document.querySelectorAll('#modalBirth');
 
 let modalMarkup = `
   <div id="modalAvatar">
-    <img src="">
+    <img src="" id="modalPhoto">
   </div>
   <p id="modalName"></p>
   <p id="modalEmail"></p>
@@ -82,3 +89,41 @@ let modalMarkup = `
 `;
 
 modal.innerHTML = modalMarkup;
+directory.appendChild(modal);
+
+/*
+const showModal = (event) => {
+  if (event.target !== undefined) {
+    modalPhoto.src = employeeData[event.target.id.slice(-1)].picture.large;
+    modalName.textContent = employeeData[event.target.id.slice(-1)].name.first + " " + employeeData[event.target.id.slice(-1)].name.last;
+    modalEmail.textContent = employeeData[event.target.id.slice(-1)].email;
+    modalCity.textContent = employeeData[event.target.id.slice(-1)].city;
+    modalPhone.textContent = employeeData[event.target.id.slice(-1)].phone;
+    modalAddress.textContent = employeeData[event.target.id.slice(-1)].location.street + ", " + employeeData[event.target.id.slice(-1)].location.state + ", " + employeeData[event.target.id.slice(-1)].location.postcode;
+    modalBirth.textContent = "Birthday: " + employeeData[event.target.id.slice(-1)].dob.date;
+    modal.className = "";
+  }
+}
+*/
+
+
+const showModal = (event) => {
+  if (event.target.id.includes("employee") ||
+    event.target.id.includes("photo") ||
+    event.target.id.includes("info") ||
+    event.target.id.includes("name") ||
+    event.target.id.includes("email") ||
+    event.target.id.includes("city")) {
+    console.log(modalPhoto.src = employeeData[event.target.id.match(/\d/g).join("")].picture.large);
+    console.log(modalName.textContent = employeeData[event.target.id.match(/\d/g).join("")].name.first + " " + employeeData[event.target.id.match(/\d/g).join("")].name.last);
+    console.log(modalEmail.textContent = employeeData[event.target.id.match(/\d/g).join("")].email);
+    console.log(modalCity.textContent = employeeData[event.target.id.match(/\d/g).join("")].location.city);
+    console.log(modalPhone.textContent = employeeData[event.target.id.match(/\d/g).join("")].phone);
+    console.log(modalAddress.textContent = employeeData[event.target.id.match(/\d/g).join("")].location.street + ", " + employeeData[event.target.id.match(/\d/g).join("")].location.state + ", " + employeeData[event.target.id.match(/\d/g).join("")].location.postcode);
+    console.log(modalBirth.textContent = "Birthday: " + employeeData[event.target.id.match(/\d/g).join("")].dob.date);
+    modal.className = "";
+    console.log(event.target.id);
+  }
+}
+
+directory.addEventListener('click', showModal);
