@@ -121,8 +121,8 @@ const showModal = (event) => {
     console.log(modalPhone.textContent = employeeData[event.target.id.match(/\d/g).join("")].phone);
     console.log(modalAddress.textContent = employeeData[event.target.id.match(/\d/g).join("")].location.street + ", " + employeeData[event.target.id.match(/\d/g).join("")].location.state + ", " + employeeData[event.target.id.match(/\d/g).join("")].location.postcode);
     console.log(modalBirth.textContent = "Birthday: " + employeeData[event.target.id.match(/\d/g).join("")].dob.date);
-    modal.className = "";
     console.log(event.target.id);
+    modal.className = "";
   }
 }
 
