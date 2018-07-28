@@ -114,13 +114,20 @@ const showModal = (event) => {
     event.target.id.includes("name") ||
     event.target.id.includes("email") ||
     event.target.id.includes("city")) {
-    modalPhoto.src = employeeData[event.target.id.match(/\d/g).join("")].picture.large;
-    modalName.textContent = employeeData[event.target.id.match(/\d/g).join("")].name.first + " " + employeeData[event.target.id.match(/\d/g).join("")].name.last;
-    modalEmail.textContent = employeeData[event.target.id.match(/\d/g).join("")].email;
-    modalCity.textContent = employeeData[event.target.id.match(/\d/g).join("")].location.city;
-    modalPhone.textContent = employeeData[event.target.id.match(/\d/g).join("")].phone;
-    modalAddress.textContent = employeeData[event.target.id.match(/\d/g).join("")].location.street + ", " + employeeData[event.target.id.match(/\d/g).join("")].location.state + ", " + employeeData[event.target.id.match(/\d/g).join("")].location.postcode;
-    modalBirth.textContent = "Birthday: " + employeeData[event.target.id.match(/\d/g).join("")].dob.date;
+      modal.innerHTML = `
+      <div id="modalAvatar">
+        <img src="${employeeData[event.target.id.match(/\d/g).join("")].picture.large}" id="modalPhoto">
+      </div>
+      <div id="modalInfo">
+      <p id="modalName">${employeeData[event.target.id.match(/\d/g).join("")].name.first} ${employeeData[event.target.id.match(/\d/g).join("")].name.last}</p>
+      <p id="modalEmail">${employeeData[event.target.id.match(/\d/g).join("")].email}</p>
+      <p id="modalCity">${employeeData[event.target.id.match(/\d/g).join("")].location.city}</p>
+      <hr>
+      <p id="modalPhone">${employeeData[event.target.id.match(/\d/g).join("")].phone}</p>
+      <p id="modalAddress">${employeeData[event.target.id.match(/\d/g).join("")].location.street}, ${employeeData[event.target.id.match(/\d/g).join("")].location.state}, ${employeeData[event.target.id.match(/\d/g).join("")].location.postcode}</p>
+      <p id="modalBirth">Birthday: ${employeeData[event.target.id.match(/\d/g).join("")].dob.date}</p>
+      </div>
+      `;
     modal.style.display = "block";
   }
 }
