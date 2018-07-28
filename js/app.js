@@ -66,7 +66,7 @@ fetchData('https://randomuser.me/api/?results=12&nat=us')
 =============*/
 const modal = document.createElement('div');
 modal.id = "modal";
-modal.className = "hidden";
+modal.style.display = "none";
 const modalPhoto = document.querySelectorAll('#modalPhoto');
 const modalName = document.querySelectorAll('#modalName');
 const modalEmail = document.querySelectorAll('#modalEmail');
@@ -79,6 +79,7 @@ let modalMarkup = `
   <div id="modalAvatar">
     <img src="" id="modalPhoto">
   </div>
+  <div id="modalInfo">
   <p id="modalName"></p>
   <p id="modalEmail"></p>
   <p id="modalCity"></p>
@@ -86,10 +87,10 @@ let modalMarkup = `
   <p id="modalPhone"></p>
   <p id="modalAddress"></p>
   <p id="modalBirth"></p>
+  </div>
 `;
 
 modal.innerHTML = modalMarkup;
-directory.appendChild(modal);
 
 /*
 const showModal = (event) => {
@@ -122,7 +123,8 @@ const showModal = (event) => {
     console.log(modalAddress.textContent = employeeData[event.target.id.match(/\d/g).join("")].location.street + ", " + employeeData[event.target.id.match(/\d/g).join("")].location.state + ", " + employeeData[event.target.id.match(/\d/g).join("")].location.postcode);
     console.log(modalBirth.textContent = "Birthday: " + employeeData[event.target.id.match(/\d/g).join("")].dob.date);
     console.log(event.target.id);
-    modal.className = "";
+    modal.style.display = "block";
+    directory.appendChild(modal);
   }
 }
 

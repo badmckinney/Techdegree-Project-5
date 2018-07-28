@@ -12,18 +12,23 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-p {
+.employee > p {
   margin: 2px 0px 8px 1px;
 }
 
 h2 {
-  margin: 20px 0px 0px 100px;
+  margin: 20px 0px 0px 60px;
   color: #585858;
 }
 
 h3 {
   margin: 2px 0px 10px 1px;
   font-size: 1.2em
+}
+
+hr {
+  width: 380px;
+  color: #a5a9ac;
 }
 
 .photo {
@@ -75,23 +80,56 @@ h3 {
 }
 
 #directory {
-  margin: 0px 40px 20px 40px;
-  padding: 20px 40px 20px 40px;
+  margin: 0px 40px 20px 20px;
+  padding: 20px 40px 20px 20px;
 }
 
 #modal {
   background: #fff;
-  width: 475px;
-  height: 500px;
+  width: 450px;
+  height: 480px;
   position: absolute;
   z-index: 1;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
+
+#modalName {
+  color: #414b52;
+}
+
+
 
 #modalName
 #modalCity
 #modalAddress {
   text-transform: capitalize;
+}
+
+#modalPhoto
+#modalName
+#modalEmail
+#modalCity
+#modalPhone
+#modalAddress
+#modalBirth {
+  text-align: center;
+}
+
+#modalEmail
+#modalCity
+#modalPhone
+#modalAddress
+#modalBirth {
+  color: #a5a9ac;
+  line-height: 20px;
+}
+
+#modalInfo {
+
 }
 /*======================
      PSEUDO CLASSES
