@@ -64,8 +64,7 @@ fetchData('https://randomuser.me/api/?results=12&nat=us')
 /*============
      MODAL
 =============*/
-const modal = document.createElement('div');
-modal.id = "modal";
+const modal = document.querySelector('#modal');
 modal.style.display = "none";
 const modalPhoto = document.querySelectorAll('#modalPhoto');
 const modalName = document.querySelectorAll('#modalName');
@@ -115,16 +114,14 @@ const showModal = (event) => {
     event.target.id.includes("name") ||
     event.target.id.includes("email") ||
     event.target.id.includes("city")) {
-    console.log(modalPhoto.src = employeeData[event.target.id.match(/\d/g).join("")].picture.large);
-    console.log(modalName.textContent = employeeData[event.target.id.match(/\d/g).join("")].name.first + " " + employeeData[event.target.id.match(/\d/g).join("")].name.last);
-    console.log(modalEmail.textContent = employeeData[event.target.id.match(/\d/g).join("")].email);
-    console.log(modalCity.textContent = employeeData[event.target.id.match(/\d/g).join("")].location.city);
-    console.log(modalPhone.textContent = employeeData[event.target.id.match(/\d/g).join("")].phone);
-    console.log(modalAddress.textContent = employeeData[event.target.id.match(/\d/g).join("")].location.street + ", " + employeeData[event.target.id.match(/\d/g).join("")].location.state + ", " + employeeData[event.target.id.match(/\d/g).join("")].location.postcode);
-    console.log(modalBirth.textContent = "Birthday: " + employeeData[event.target.id.match(/\d/g).join("")].dob.date);
-    console.log(event.target.id);
+    modalPhoto.src = employeeData[event.target.id.match(/\d/g).join("")].picture.large;
+    modalName.textContent = employeeData[event.target.id.match(/\d/g).join("")].name.first + " " + employeeData[event.target.id.match(/\d/g).join("")].name.last;
+    modalEmail.textContent = employeeData[event.target.id.match(/\d/g).join("")].email;
+    modalCity.textContent = employeeData[event.target.id.match(/\d/g).join("")].location.city;
+    modalPhone.textContent = employeeData[event.target.id.match(/\d/g).join("")].phone;
+    modalAddress.textContent = employeeData[event.target.id.match(/\d/g).join("")].location.street + ", " + employeeData[event.target.id.match(/\d/g).join("")].location.state + ", " + employeeData[event.target.id.match(/\d/g).join("")].location.postcode;
+    modalBirth.textContent = "Birthday: " + employeeData[event.target.id.match(/\d/g).join("")].dob.date;
     modal.style.display = "block";
-    directory.appendChild(modal);
   }
 }
 
