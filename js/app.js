@@ -1,5 +1,5 @@
 const directory = document.getElementById('directory');
-let displayedIndex;
+const overlay = document.getElementById('overlay');
 
 /*====================
      HTTP REQUEST
@@ -34,19 +34,21 @@ const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-//Takes the fetched data and builds mark up around it to display on page.
-//Loops through the 12 returned objects and creates a div for each
-const generateMarkup = (data) => {
+//A function that creates the base elements for the page with no data in them
+//Loops 12 times to create 12 separate divs for 12 employees
+//Sets each element with an id based on their index
+//Appends the markup to the directory div
+const generateMarkup = () => {
   for (i = 0; i < 12; i += 1) {
     let pageMarkup = `
       <div id="employee${i}" class="employee">
         <div class="avatar">
-          <img src="${data[i].picture.medium}" id="photo${i}" class="photo">
+          <img src="" id="photo${i}" class="photo">
         </div>
         <div id="info${i}" class="userInfo">
-          <h3 id="name${i}" class="name">${capitalizeFirstLetter(data[i].name.first)} ${capitalizeFirstLetter(data[i].name.last)}</h3>
-          <p id="email${i}" class="email">${data[i].email}</p>
-          <p id="city${i}" class="city">${capitalizeFirstLetter(data[i].location.city)}</p>
+          <h3 id="name${i}" class="name"></h3>
+          <p id="email${i}" class="email"></p>
+          <p id="city${i}" class="city"></p>
         </div>
       </div>
     `;
@@ -54,16 +56,38 @@ const generateMarkup = (data) => {
   }
 }
 
+generateMarkup();
+
+//Variables for reference
+const employees = document.getElementsByClassName('employee');
+const photos = document.getElementsByClassName('photo');
+const names = document.getElementsByClassName('name');
+const emails = document.getElementsByClassName('email');
+const cities = document.getElementsByClassName('city');
+
+//A function that injects the fetched data into the page markup
+//Loops over 12 times to target each employee div and updates markup
+const injectData = (data) => {
+  for (i = 0; i < 12; i += 1) {
+    photos[i].src = employeeData[i].picture.medium;
+    names[i].textContent = capitalizeFirstLetter(employeeData[i].name.first) + " " + capitalizeFirstLetter(employeeData[i].name.last);
+    emails[i].textContent = employeeData[i].email;
+    cities[i].textContent = capitalizeFirstLetter(employeeData[i].location.city);
+  }
+}
+
 //fetchData function is called, returning 12 objects from randomuser API
 //generateMarkup function is called, passing the returned data as an argument
 fetchData('https://randomuser.me/api/?results=12&nat=us')
   .then(res => employeeData = res.results)
-  .then(data => generateMarkup(data))
+  .then(data => injectData(data))
 
 
 /*============
      MODAL
 =============*/
+//Variables for reference
+//Hides modal
 const modal = document.querySelector('#modal');
 modal.style.display = "none";
 const modalPhoto = document.querySelectorAll('#modalPhoto');
@@ -74,6 +98,8 @@ const modalPhone = document.querySelectorAll('#modalPhone');
 const modalAddress = document.querySelectorAll('#modalAddress');
 const modalBirth = document.querySelectorAll('#modalBirth');
 
+//A variable to hold the markup for the modal
+//Markup is appended to modal's div
 let modalMarkup = `
   <button id="close" aria-label="Close Modal Box">&times;</button>
   <div id="modalAvatar">
@@ -96,6 +122,10 @@ let modalMarkup = `
 
 modal.innerHTML = modalMarkup;
 
+//Checks if the user clicked one of the elements on an employee div
+//If yes, updates the modal's HTML Markup based on the id of the click target
+//Modal & overlay is revealed
+//displayedIndex is updated with the index of the click target
 const showModal = (event) => {
   if (event.target.id.includes("employee") ||
     event.target.id.includes("photo") ||
@@ -123,14 +153,21 @@ const showModal = (event) => {
       </div>
       `;
     modal.style.display = "block";
+    overlay.style.display = "block";
     displayedIndex = parseInt(event.target.id.match(/\d/g).join(""));
   }
 }
 
+//Event listener for clicks on the directory as a whole
 directory.addEventListener('click', showModal);
 
-const closeButton = document.querySelector('#close');
+// - - - - - - - - TOGGLE FUNCTIONALITY - - - - - - - - - //
 
+//Variable to indicate the index of the current employee being displayed on modal
+let displayedIndex;
+
+//Checks to see that any employee other than the first is being displayed
+//If so, subtracts 1 from the displayIndex and updates markup with previous employee
 const previous = () => {
   if (displayedIndex > 0) {
     displayedIndex -= 1;
@@ -156,6 +193,8 @@ const previous = () => {
   }
 }
 
+//Checks to see that any employee other than the last is being displayed
+//If so, adds 1 from the displayIndex and updates markup with next employee
 const next = () => {
   if (displayedIndex < 11) {
     displayedIndex += 1;
@@ -181,9 +220,14 @@ const next = () => {
   }
 }
 
+//Checks to see which button was clicked.
+//If close button, modal and overlay is hidden
+//If previous button, shows previous employee information
+//If next button, shows next employee information
 const handleModal = (event) => {
   if (event.target.id === "close") {
     modal.style.display = "none";
+    overlay.style.display = "none";
   } else if (event.target.id === "previous") {
     previous();
   } else if (event.target.id === "next") {
@@ -191,22 +235,27 @@ const handleModal = (event) => {
   }
 }
 
+//Listens for clicks on the modal
+//On click, runs the handleModal function
 modal.addEventListener('click', handleModal);
 
 
 /*==============
      SEARCH
 ===============*/
+//Variable for reference
 const search = document.querySelector('#search');
 
+//Loops 12 times, once over each employee's name
+//Checks to see if each name contains the user's input (Both are set to lowercase to ensure proper matching)
+//If so, those employees are displayed to the page
+//If not, those employees are hidden
+//If the user deletes all input, all employees are displayed on the page again
 const filter = () => {
-  let employees = document.querySelectorAll('.employee');
-  let names = document.querySelectorAll('.name');
-
-  for (i = 0; i < 11; i += 1) {
-    if (names[i].includes(search.value)) {
+  for (i = 0; i < 12; i += 1) {
+    if (names[i].textContent.toLowerCase().indexOf(search.value.toLowerCase()) > -1) {
       employees[i].style.display = "block";
-    } else {
+    } else if (names[i].textContent.toLowerCase().indexOf(search.value.toLowerCase()) === -1) {
       employees[i].style.display = "none";
     }
   }
@@ -217,4 +266,6 @@ const filter = () => {
   }
 }
 
+//Listens for and triggers when user is typing on the search bar and any key goes up from being pressed
+//When triggered, calls filter function
 search.addEventListener('keyup', filter)

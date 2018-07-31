@@ -1,21 +1,15 @@
+/*====================
+     MAIN STYLES
+=====================*/
 
 body {
   background: #f7f7f7;
   font-family: 'Open Sans', sans-serif;
 }
 
-.employee > p {
-  margin: 2px 0px 8px 1px;
-}
-
 h2 {
   margin: 20px 0px 0px 60px;
   color: #585858;
-}
-
-#directory h3 {
-  margin: 2px 0px 10px 1px;
-  font-size: 1.2em
 }
 
 hr {
@@ -28,6 +22,10 @@ hr {
   border-radius: 100px;
   margin-right: 0px;
   margin-top: 15px;
+  border-width: 2px;
+  border-color: #00385b;
+  border-style: solid;
+  opacity: 0.90;
 }
 
 .name {
@@ -68,17 +66,35 @@ hr {
   font-size: .85em;
 }
 
+.employee > p {
+  margin: 2px 0px 8px 1px;
+}
+
 #directory {
   margin: 0px 40px 20px 20px;
   padding: 20px 40px 20px 20px;
 }
 
+#header {
+  display: flex;
+  justify-content: space-between;
+}
+
+#directory h3 {
+  margin: 2px 0px 10px 1px;
+  font-size: 1.2em
+}
+
+/*=============
+     MODAL
+==============*/
+
 #modal {
   background: #fff;
   width: 450px;
-  height: 480px;
+  height: 520px;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 10px;
   left: 50%;
@@ -87,19 +103,82 @@ hr {
   text-align: center;
 }
 
-#modal p {
-  text-align: center;
-  margin-bottom: 15px;
+#modalName {
+  margin-bottom: 20px;
+}
+
+#modalBirth {
   color: #a5a9ac;
+  text-align: center;
+  margin-bottom: 0px;
 }
 
 #modalPhoto {
   border-radius: 100px;
   margin: 0 auto;
+  border-width: 3px;
+  border-color: #00385b;
+  border-style: solid;
+  opacity: 0.90;
 }
 
 #modalAvatar {
   margin: 30px 0px 0px 0px;
+}
+
+#close {
+  left: 90%;
+  position: absolute;
+  margin-top: 10px;
+  background: #cd2f28;
+  color: #fff;
+  border-radius: 5px;
+  transition: all .2s ease-in-out;
+}
+
+#previous,
+#next {
+  width: 60px;
+  height: 60px;
+  color: #00385b;;
+  font-size: 80px;
+  border: none;
+  transition: all .2s ease-in-out;
+  background: none;
+}
+
+#arrows {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 25px;
+  vertical-align: middle;
+}
+
+#previous {
+  margin: 0px 0px 0px 40px;
+}
+
+#next {
+  margin: 0px 40px 0px 0px;
+}
+
+#overlay {
+  background-color: #585858;
+  opacity: 0.66;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+#modalEmail,
+#modalCity,
+#modalEmail,
+#modalPhone,
+#modalAddress,
+hr {
+  text-align: center;
+  margin-bottom: 18px;
+  color: #a5a9ac;
 }
 
 #modal h3 {
@@ -113,45 +192,9 @@ hr {
   text-transform: capitalize;
 }
 
-#close {
-  left: 90%;
-  position: absolute;
-  margin-top: 10px;
-  background: #cd2f28;
-  color: #fff;
-  border-radius: 5px;
-  transition: all .4s ease-in-out;
-}
-
-#previous,
-#next {
-  width: 40px;
-  height: 40px;
-  color: #fff;
-  font-size: 20px;
-  background: #00385b;
-  border-radius: 100%;
-  transition: all .4s ease-in-out;
-}
-
-#arrows {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px
-}
-
-#previous {
-  margin: 0px 0px 0px 40px;
-}
-
-#next {
-  margin: 0px 40px 0px 0px;
-}
-
-#header {
-  display: flex;
-  justify-content: space-between;
-}
+/*===================
+     SEARCH BAR
+====================*/
 
 #search {
   margin: 20px 60px 0px 0px;
@@ -159,7 +202,6 @@ hr {
   border-color: #a5a9ac;
   border-radius: 5px;
 }
-
 
 /*======================
      PSEUDO CLASSES
@@ -173,8 +215,8 @@ hr {
 
 #previous:hover,
 #next:hover {
-  background: #0071aa;
-  transform: scale(1.1);
+  transform: scale(1.2);
+  transform-origin: bottom;
   cursor: pointer;
 }
 
