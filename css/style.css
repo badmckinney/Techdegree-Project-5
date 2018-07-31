@@ -148,6 +148,17 @@ hr {
   margin: 0px 40px 0px 0px;
 }
 
+#header {
+  display: flex;
+  justify-content: space-between;
+}
+
+#search {
+  margin: 20px 60px 0px 0px;
+  border-width: 2px;
+  border-color: #a5a9ac;
+  border-radius: 5px;
+}
 
 
 /*======================

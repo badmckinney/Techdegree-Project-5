@@ -52,7 +52,6 @@ const generateMarkup = (data) => {
     `;
     directory.innerHTML += pageMarkup;
   }
-  const employees = document.querySelectorAll('.employee');
 }
 
 //fetchData function is called, returning 12 objects from randomuser API
@@ -198,3 +197,24 @@ modal.addEventListener('click', handleModal);
 /*==============
      SEARCH
 ===============*/
+const search = document.querySelector('#search');
+
+const filter = () => {
+  let employees = document.querySelectorAll('.employee');
+  let names = document.querySelectorAll('.name');
+
+  for (i = 0; i < 11; i += 1) {
+    if (names[i].includes(search.value)) {
+      employees[i].style.display = "block";
+    } else {
+      employees[i].style.display = "none";
+    }
+  }
+  if (search.value === "") {
+    for (i = 0; i < 11; i += 1) {
+      employees[i].style.display = "block";
+    }
+  }
+}
+
+search.addEventListener('keyup', filter)
