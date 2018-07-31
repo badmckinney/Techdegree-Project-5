@@ -145,6 +145,7 @@ hr {
   border: none;
   transition: all .2s ease-in-out;
   background: none;
+  outline: none;
 }
 
 #arrows {
