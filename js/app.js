@@ -1,4 +1,5 @@
 const directory = document.getElementById('directory');
+let displayedIndex;
 
 /*====================
      HTTP REQUEST
@@ -75,6 +76,7 @@ const modalAddress = document.querySelectorAll('#modalAddress');
 const modalBirth = document.querySelectorAll('#modalBirth');
 
 let modalMarkup = `
+  <button id="close" aria-label="Close Modal Box">&times;</button>
   <div id="modalAvatar">
     <img src="" id="modalPhoto">
   </div>
@@ -87,25 +89,13 @@ let modalMarkup = `
   <p id="modalAddress"></p>
   <p id="modalBirth"></p>
   </div>
+  <div id="arrows">
+    <button id="previous" aria-label="Previous Employee">&#8249;</button>
+    <button id="next" aria-label="Next Employee">&#8250;</button>
+  </div>
 `;
 
 modal.innerHTML = modalMarkup;
-
-/*
-const showModal = (event) => {
-  if (event.target !== undefined) {
-    modalPhoto.src = employeeData[event.target.id.slice(-1)].picture.large;
-    modalName.textContent = employeeData[event.target.id.slice(-1)].name.first + " " + employeeData[event.target.id.slice(-1)].name.last;
-    modalEmail.textContent = employeeData[event.target.id.slice(-1)].email;
-    modalCity.textContent = employeeData[event.target.id.slice(-1)].city;
-    modalPhone.textContent = employeeData[event.target.id.slice(-1)].phone;
-    modalAddress.textContent = employeeData[event.target.id.slice(-1)].location.street + ", " + employeeData[event.target.id.slice(-1)].location.state + ", " + employeeData[event.target.id.slice(-1)].location.postcode;
-    modalBirth.textContent = "Birthday: " + employeeData[event.target.id.slice(-1)].dob.date;
-    modal.className = "";
-  }
-}
-*/
-
 
 const showModal = (event) => {
   if (event.target.id.includes("employee") ||
@@ -115,21 +105,96 @@ const showModal = (event) => {
     event.target.id.includes("email") ||
     event.target.id.includes("city")) {
       modal.innerHTML = `
+      <button id="close" aria-label="Close Modal Box">&times;</button>
       <div id="modalAvatar">
         <img src="${employeeData[event.target.id.match(/\d/g).join("")].picture.large}" id="modalPhoto">
       </div>
       <div id="modalInfo">
-      <p id="modalName">${employeeData[event.target.id.match(/\d/g).join("")].name.first} ${employeeData[event.target.id.match(/\d/g).join("")].name.last}</p>
+      <h3 id="modalName">${employeeData[event.target.id.match(/\d/g).join("")].name.first} ${employeeData[event.target.id.match(/\d/g).join("")].name.last}</h3>
       <p id="modalEmail">${employeeData[event.target.id.match(/\d/g).join("")].email}</p>
       <p id="modalCity">${employeeData[event.target.id.match(/\d/g).join("")].location.city}</p>
       <hr>
       <p id="modalPhone">${employeeData[event.target.id.match(/\d/g).join("")].phone}</p>
       <p id="modalAddress">${employeeData[event.target.id.match(/\d/g).join("")].location.street}, ${employeeData[event.target.id.match(/\d/g).join("")].location.state}, ${employeeData[event.target.id.match(/\d/g).join("")].location.postcode}</p>
-      <p id="modalBirth">Birthday: ${employeeData[event.target.id.match(/\d/g).join("")].dob.date}</p>
+      <p id="modalBirth">Birthday: ${employeeData[event.target.id.match(/\d/g).join("")].dob.date.replace(/(\d{4})\-(\d{2})\-(\d{2}).*/, '$3-$2-$1')}</p>
+      <div id="arrows">
+        <button id="previous" aria-label="Previous Employee">&#8249;</button>
+        <button id="next" aria-label="Next Employee">&#8250;</button>
+      </div>
       </div>
       `;
     modal.style.display = "block";
+    displayedIndex = parseInt(event.target.id.match(/\d/g).join(""));
   }
 }
 
 directory.addEventListener('click', showModal);
+
+const closeButton = document.querySelector('#close');
+
+const previous = () => {
+  if (displayedIndex > 0) {
+    displayedIndex -= 1;
+    modal.innerHTML = `
+      <button id="close" aria-label="Close Modal Box">&times;</button>
+      <div id="modalAvatar">
+        <img src="${employeeData[displayedIndex].picture.large}" id="modalPhoto">
+      </div>
+      <div id="modalInfo">
+      <h3 id="modalName">${employeeData[displayedIndex].name.first} ${employeeData[displayedIndex].name.last}</h3>
+      <p id="modalEmail">${employeeData[displayedIndex].email}</p>
+      <p id="modalCity">${employeeData[displayedIndex].location.city}</p>
+      <hr>
+      <p id="modalPhone">${employeeData[displayedIndex].phone}</p>
+      <p id="modalAddress">${employeeData[displayedIndex].location.street}, ${employeeData[displayedIndex].location.state}, ${employeeData[displayedIndex].location.postcode}</p>
+      <p id="modalBirth">Birthday: ${employeeData[displayedIndex].dob.date.replace(/(\d{4})\-(\d{2})\-(\d{2}).*/, '$3-$2-$1')}</p>
+      <div id="arrows">
+        <button id="previous" aria-label="Previous Employee">&#8249;</button>
+        <button id="next" aria-label="Next Employee">&#8250;</button>
+      </div>
+      </div>
+    `
+  }
+}
+
+const next = () => {
+  if (displayedIndex < 11) {
+    displayedIndex += 1;
+    modal.innerHTML = `
+      <button id="close" aria-label="Close Modal Box">&times;</button>
+      <div id="modalAvatar">
+        <img src="${employeeData[displayedIndex].picture.large}" id="modalPhoto">
+      </div>
+      <div id="modalInfo">
+      <h3 id="modalName">${employeeData[displayedIndex].name.first} ${employeeData[displayedIndex].name.last}</h3>
+      <p id="modalEmail">${employeeData[displayedIndex].email}</p>
+      <p id="modalCity">${employeeData[displayedIndex].location.city}</p>
+      <hr>
+      <p id="modalPhone">${employeeData[displayedIndex].phone}</p>
+      <p id="modalAddress">${employeeData[displayedIndex].location.street}, ${employeeData[displayedIndex].location.state}, ${employeeData[displayedIndex].location.postcode}</p>
+      <p id="modalBirth">Birthday: ${employeeData[displayedIndex].dob.date.replace(/(\d{4})\-(\d{2})\-(\d{2}).*/, '$3-$2-$1')}</p>
+      <div id="arrows">
+        <button id="previous" aria-label="Previous Employee">&#8249;</button>
+        <button id="next" aria-label="Next Employee">&#8250;</button>
+      </div>
+      </div>
+    `
+  }
+}
+
+const handleModal = (event) => {
+  if (event.target.id === "close") {
+    modal.style.display = "none";
+  } else if (event.target.id === "previous") {
+    previous();
+  } else if (event.target.id === "next") {
+    next();
+  }
+}
+
+modal.addEventListener('click', handleModal);
+
+
+/*==============
+     SEARCH
+===============*/
