@@ -253,7 +253,7 @@ const search = document.querySelector('#search');
 //If the user deletes all input, all employees are displayed on the page again
 const filter = () => {
   for (i = 0; i < 12; i += 1) {
-    if (names[i].textContent.toLowerCase().indexOf(search.value.toLowerCase()) > -1 || emails[i].textContent.toLowerCase().indexOf(search.value.toLowerCase()) > -1 ) {
+    if (names[i].textContent.toLowerCase().indexOf(search.value.toLowerCase()) > -1 || employeeData[i].login.username.toLowerCase().indexOf(search.value.toLowerCase()) > -1 ) {
       employees[i].style.display = "block";
     } else if (names[i].textContent.toLowerCase().indexOf(search.value.toLowerCase()) === -1) {
       employees[i].style.display = "none";
